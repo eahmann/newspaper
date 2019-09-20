@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load wagtailcore_tags wagtailimages_tags wagtailroutablepage_tags %}
+
+{% block content %}
+
+
+<h2 class="text-center">{{ self.title }}</h2>
+<h5 class="text-center">{{ self.role }}</h5>
+
+<hr>
+<div class="row">
+<div class="col-9">
+<div class="card-deck">
+{% for post in posts %}
+{% image post.page.specific.main_image fill-300x200 as img %}
+<div class="card z-depth-1" style="margin-bottom: 1em">
+    <a href="{{ post.page.url }}">
+        {% if  post.page.main_image %}<img src="{{ img.url }}" alt="{{ img.alt }}" class="card-img-top">
+    
+        {% else %}
+        
+        <img src="https://via.placeholder.com/300x200" alt="{{ img.alt }}" class="card-img-top">
+        {% endif %}
+    </a>
+    <div class="card-body">
+            <a href="{{ post.page.url }}">
+                    <h5 class="card-title">{{ post.page.title }}</h5>
+                </a>
+                <small class="text-muted">{{ post.page.specific.date|date:"M d, Y" }}</small>
+<p class="card-text"> 
+ {% if  post.page.authors.all %}
+    By {% for iter in post.page.authors.all %}
+        {% if iter.author.person_page.url %}
+        <a href="{{ iter.author.person_page.url }}">{{ iter.author.name }}</a>{% include 'includes/comma_and.html' %}
+        {% else %}
+        {{ iter.author.name }}{% include 'includes/comma_and.html' %}
+        {% endif %}
+    {% endfor %}
+{% endif %}</p>
+<p class="card-text"></p>
+<p>{{ post.page.short_lead_in }}</p>
+</div>
+</div>
+
+  {% endfor %}
+</div>
+</div>
+<div class="col-3">
+    Positions held:<br>
+    {% for role in roles reversed %}
+    <br>{{ role }} - <a href="{% routablepageurl parent "year" role.year %}">{{ role.year }}</a>
+    {% endfor %}
+</div>
+{% endblock %}

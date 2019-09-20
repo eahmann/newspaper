@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% load wagtailimages_tags wagtailcore_tags custom_tags wagtailroutablepage_tags %}
+
+{% block content %}
+        <div class="row">
+          <div class="col-sm">
+                <div class="btn-group">           
+                        <!--Dropdown primary-->
+                        <div class="dropdown">
+                      
+                          <!--Trigger-->
+                          <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" style="background-color:#E0D6B4; color:black">Select school year</button>
+                          <!--Menu-->
+                          <div class="dropdown-menu dropdown-primary">
+                                {% for year in years.all %}
+                                <a class="dropdown-item" href="{% routablepageurl self "year" year %}">{{ year }}</a>
+                               {% endfor %}
+                          </div>
+                        </div>
+                        <!--/Dropdown primary-->
+                      </div>
+          </div>
+          <div class="col-sm">
+                <h2 class="text-center">{{ self.title }}</h2>
+                <h5 class="text-center">{{ year }}</h5>
+          </div>
+          <div class="col-sm">
+            <!-- Empty col -->
+          </div>
+        </div>
+
+<!--Dropdown primary-->
+<div class="dropdown">
+
+  <!--Trigger-->
+  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">Material dropdown</button>
+
+  <!--Menu-->
+  <div class="dropdown-menu dropdown-primary">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
+<!--/Dropdown primary-->
+      <hr>
+      <br>
+<div class="card-deck">
+        {% for person in people.all %}
+        {% image person.specific.profile_image fill-300x200 as img %}
+        <!-- <div class="card z-depth-1 mb-4">
+                
+                <div class="card-body">
+                    <a href="{{ person.url }}">
+            <h5 class="card-title">{{ person.title }}</h5></a>
+            {% get_role person year %}
+
+            <p class="card-text">
+                {% if person.specific.profile_image %}
+                <img src="{{ img.url }}" alt="{{ person.title }}">
+                {% else %}
+                <img src="https://via.placeholder.com/300x200" alt="No picture">
+                {% endif %}
+                {% for year in person.years_active.all %}
+                <a href="{{ page.url }}year/{{ year.year_string }}">
+            <small class="text-muted">{{ year }}</small>
+        </a>
+            {% endfor %}
+          </div>
+        </div> -->
+              <!-- Card -->
+<div class="card testimonial-card">
+
+    <!-- Background color -->
+    <div class="card-up sunny-morning-gradient"></div>
+  
+    <!-- Avatar -->
+    <div class="avatar mx-auto white">
+           {% if person.specific.profile_image %}
+                <img src="{{ img.url }}" alt="{{ person.title }}">
+                {% else %}
+                <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(27).jpg" alt="No picture">
+                {% endif %}
+    </div>
+  
+    <!-- Content -->
+    <div class="card-body">
+      <!-- Name -->
+      <a href="{{ person.url }}">
+          <h4 class="card-title">{{ person.title }}</h4></a>
+      <hr>
+      <!-- Quotation -->
+      <p><i class="fas fa-quote-left"></i> {% get_role person year %}</p>
+    </div>
+  
+  </div>
+  <!-- Card -->
+      {% endfor %}
+      </div>
+
+
+{% endblock %} 

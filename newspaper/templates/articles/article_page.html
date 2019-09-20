@@ -1,0 +1,628 @@
+{% extends "base.html" %}
+
+{% load wagtailimages_tags wagtailcore_tags  %}
+
+{% block content %}
+{% image self.specific.main_image max-750x300 as small_img %}
+{% image self.main_image max-750x500 as med_img %}
+{% image self.main_image original as full_img %}
+    <div class="mb-5 col-lg-12">
+        <div class="text-center">
+            <h2>{{ self.title }}</h2>
+            {% if self.sub_title %}
+            <h4>{{ self.sub_title }}</h4>
+            {% endif %}
+            
+            <p class="card-text">{{ self.specific.date|date:"F d, Y" }}, By {% for iter in self.authors.all %}
+                {# If there's a website, create an <a> tag #}
+                  {% if iter.author.person_page.url %}
+                <a href="{{ iter.author.person_page.url }}">{{ iter.author.name }}{{ iter.author.role_assignment.role }}
+                </a>{% include 'includes/comma_and.html' %}
+                {% else %}
+                {{ iter.author.name }}{% include 'includes/comma_and.html' %}
+                {% endif %}
+            {% endfor %} 
+            {{ self.person }}
+            </p>
+        </div>
+
+
+            
+                
+                   <!--Blog section-->
+    <section>
+            <div class="container-fluid">
+                <hr class="my-2">
+                <div class="container">
+
+                    <!--Blog-->
+                    <div class="row mt-4 pt-1">
+    
+                        <!--Main listing-->
+                        <div class="col-lg-9 col-12 mt-1">
+    
+                            <!--Section: Blog v.3-->
+                            <section class="extra-margins pb-5 text-lg-left">
+    
+                                <!--Grid row-->
+                                <div class="row mb-4">
+    
+                                    <!--Grid column-->
+                                    <div class="col-md-12">
+                                            
+                                                    {% if self.allow_main_image %}
+                                                    <div class="d-flex justify-content-center">
+                                                    <img src="{{med_img.url }}" alt="{{ small_img.alt }}" class="img-fluid z-depth-1 wow fadeIn align-items-center" data-wow-delay="0.2s">
+                                                      <p style="margin-bottom:0px">{{ self.main_image.credit }}</p>
+                                                      </div>
+                                                      <br>
+                                                  {% endif %}
+                                            
+
+                {% for block in self.body %}
+                    {% include_block block %}
+                {% endfor %}
+                                    
+
+                                        <hr>
+    
+                                        <!--Grid row-->
+                                        <div class="row mb-4 wow fadeIn" data-wow-delay="0.2s">
+    
+                                            <!--Grid column-->
+                                            <div class="col-md-12 text-center">
+    
+                                                <h4 class="text-center font-weight-bold dark-grey-text mt-3 mb-3">
+                                                    <strong>Share this post: </strong>
+                                                </h4>
+    
+                                                <button type="button" class="btn btn-fb btn-sm">
+                                                    <i class="fab fa-facebook-f left"></i> Facebook</button>
+                                                <!--Twitter-->
+                                                <button type="button" class="btn btn-tw btn-sm">
+                                                    <i class="fab fa-twitter left"></i> Twitter</button>
+                                                <!--Google +-->
+                                                <button type="button" class="btn btn-gplus btn-sm">
+                                                    <i class="fab fa-google-plus-g left"></i> Google +</button>
+    
+                                                <hr class="mt-5">
+                                            </div>
+                                            <!--Grid column-->
+    
+                                        </div>
+                                        <!--Grid row-->
+    
+                                        <!--Comments-->
+                                        <section>
+    
+                                            <!--Main wrapper-->
+                                            <div class="comments-list text-center text-md-left">
+                                                <div class="text-center my-5">
+                                                    <h3 class="font-weight-bold">Comments
+                                                        <span class="badge indigo">3</span>
+                                                    </h3>
+                                                </div>
+                                                <!--First row-->
+                                                <div class="row mb-5">
+                                                    <!--Image column-->
+                                                    <div class="col-sm-2 col-12 mb-3">
+                                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img (8).jpg" class="avatar rounded-circle z-depth-1-half" alt="sample image">
+                                                    </div>
+                                                    <!--/.Image column-->
+    
+                                                    <!--Content column-->
+                                                    <div class="col-sm-10 col-12">
+                                                        <a>
+                                                            <h5 class="user-name font-weight-bold">John Doe</h5>
+                                                        </a>
+                                                        <div class="card-data">
+                                                            <ul class="list-unstyled">
+                                                                <li class="comment-date font-small">
+                                                                    <i class="far fa-clock-o"></i> 05/10/2015</li>
+                                                            </ul>
+                                                        </div>
+                                                        <p class="dark-grey-text article">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                                                            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+                                                    </div>
+                                                    <!--/.Content column-->
+                                                </div>
+                                                <!--/.First row-->
+    
+                                                <!--Second row-->
+                                                <div class="row mb-5">
+                                                    <!--Image column-->
+                                                    <div class="col-sm-2 col-12">
+                                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img (30).jpg" class="avatar rounded-circle z-depth-1-half" alt="sample image">
+                                                    </div>
+                                                    <!--/.Image column-->
+    
+                                                    <!--Content column-->
+                                                    <div class="col-sm-10 col-12 mb-3">
+                                                        <a>
+                                                            <h5 class="user-name font-weight-bold">Lily Brown</h5>
+                                                        </a>
+                                                        <div class="card-data">
+                                                            <ul class="list-unstyled">
+                                                                <li class="comment-date font-small">
+                                                                    <i class="far fa-clock-o"></i> 05/10/2015</li>
+                                                            </ul>
+                                                        </div>
+                                                        <p class="dark-grey-text article">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                                                            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+                                                    </div>
+                                                    <!--/.Content column-->
+                                                </div>
+                                                <!--/.Second row-->
+    
+                                                <!--Third row-->
+                                                <div class="row mb-5">
+                                                    <!--Image column-->
+                                                    <div class="col-sm-2 col-12 mb-3">
+                                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img (28).jpg" class="avatar rounded-circle z-depth-1-half" alt="sample image">
+                                                    </div>
+                                                    <!--/.Image column-->
+                                                    <!--Content column-->
+                                                    <div class="col-sm-10 col-12">
+                                                        <a>
+                                                            <h5 class="user-name font-weight-bold">Martha Smith</h5>
+                                                        </a>
+                                                        <div class="card-data">
+                                                            <ul class="list-unstyled">
+                                                                <li class="comment-date font-small">
+                                                                    <i class="far fa-clock-o"></i> 05/10/2015</li>
+                                                            </ul>
+                                                        </div>
+                                                        <p class="dark-grey-text article">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                                                            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+                                                    </div>
+                                                    <!--/.Content column-->
+                                                </div>
+                                                <!--/.Third row-->
+                                            </div>
+                                            <!--/.Main wrapper-->
+    
+                                        </section>
+                                        <!--/Comments-->
+                                        <hr>
+                                        <!--Section: Leave a reply (Not Logged In User)-->
+                                        <section class="mb-4 wow fadeIn" data-wow-delay="0.2s">
+                                            <h3 class="font-weight-bold text-center my-5">Leave a reply</h3>
+    
+                                            <!--Grid row-->
+                                            <div class="row">
+    
+                                                <!--Grid column-->
+                                                <div class="col-lg-4 col-md-12 mb-4">
+    
+                                                    <div class="input-group md-form form-sm form-3 pl-0">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text white black-text" id="basic-addon8">1</span>
+                                                        </div>
+                                                        <input type="text" class="form-control mt-0 black-border rgba-white-strong" placeholder="Name" aria-describedby="basic-addon9">
+                                                    </div>
+    
+                                                </div>
+                                                <!--Grid column-->
+    
+                                                <!--Grid column-->
+                                                <div class="col-lg-4 col-md-6 mb-4">
+    
+                                                    <div class="input-group md-form form-sm form-3 pl-0">
+                                                        <div class="input-group-prepend">   
+                                                            <span class="input-group-text white black-text" id="basic-addon9">2</span>
+                                                        </div>
+                                                        <input type="text" class="form-control mt-0 black-border rgba-white-strong" placeholder="Email" aria-describedby="basic-addon9">
+                                                    </div>
+    
+                                                </div>
+                                                <!--Grid column-->
+    
+                                                <!--Grid column-->
+                                                <div class="col-lg-4 col-md-6 mb-4">
+    
+                                                    <div class="input-group md-form form-sm form-3 pl-0">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text white black-text" id="basic-addon10">3</span>
+                                                        </div>
+                                                        <input type="text" class="form-control mt-0 black-border rgba-white-strong" placeholder="Website" aria-describedby="basic-addon9">
+                                                    </div>
+    
+                                                </div>
+                                                <!--Grid column-->
+    
+                                            </div>
+                                            <!--Grid row-->
+    
+                                            <!--Grid row-->
+                                            <div class="row">
+    
+                                                <div class="col-12 mt-1">
+                                                    <div class="form-group basic-textarea rounded-corners shadow-textarea">
+    
+                                                        <textarea class="form-control" id="exampleFormControlTextarea6" rows="5" placeholder="Write something here..."></textarea>
+                                                    </div>
+    
+                                                    <div class="text-right">
+                                                        <button class="btn btn-grey btn-sm">Submit</button>
+                                                    </div>
+    
+                                                </div>
+    
+                                            </div>
+                                            <!--Grid row-->
+    
+                                        </section>
+                                        <!--/Section: Leave a reply (Not Logged In User)-->
+    
+                                    </div>
+                                    <!--Grid column-->
+    
+                                </div>
+                                <!--/Grid row-->
+    
+                            </section>
+                            <!--Section: Blog v.3-->
+    
+                        </div>
+                        <!--Main listing-->
+    
+                        <!--Sidebar-->
+                        <div class="col-lg-3 col-12 mt-1 wow fadeIn" data-wow-delay="0.2s">
+    
+
+                            <!-- Section: Featured posts -->
+                            <section class="section widget-content">
+    
+                                <!--/ Card -->
+                                <div class="card card-body pb-0">
+                                    <div class="single-post">
+    
+                                        <p class="font-weight-bold dark-grey-text text-center spacing grey lighten-4 py-2 mb-4">
+                                            <strong>POPULAR POSTS</strong>
+                                        </p>
+    
+                                        <!-- Grid row -->
+                                        <div class="row mb-4">
+                                            <div class="col-5">
+    
+                                                <!-- Image -->
+                                                <div class="view overlay">
+                                                    <img src="https://mdbootstrap.com/img/Photos/Others/photo13.jpg" class="img-fluid z-depth-1 rounded-0" alt="sample image">
+                                                    <a>
+                                                        <div class="mask rgba-white-slight"></div>
+                                                    </a>
+                                                </div>
+                                            </div>
+    
+                                            <!-- Excerpt -->
+                                            <div class="col-7">
+                                                <h6 class="mt-0 font-small">
+                                                    <a>
+                                                        <strong>Title of the news</strong>
+                                                    </a>
+                                                </h6>
+    
+                                                <div class="post-data">
+                                                    <p class="font-small grey-text mb-0">
+                                                        <i class="far fa-clock-o"></i> 18/08/2017</p>
+                                                </div>
+                                            </div>
+                                            <!--/ Excerpt -->
+                                        </div>
+                                        <!--/ Grid row -->
+                                    </div>
+    
+                                    <div class="single-post">
+                                        <!-- Grid row -->
+                                        <div class="row mb-4">
+                                            <div class="col-5">
+    
+                                                <!-- Image -->
+                                                <div class="view overlay">
+                                                    <img src="https://mdbootstrap.com/img/Photos/Others/photo12.jpg" class="img-fluid z-depth-1 rounded-0" alt="sample image">
+                                                    <a>
+                                                        <div class="mask rgba-white-slight"></div>
+                                                    </a>
+                                                </div>
+                                            </div>
+    
+                                            <!-- Excerpt -->
+                                            <div class="col-7">
+                                                <h6 class="mt-0 font-small">
+                                                    <a>
+                                                        <strong>Title of the news</strong>
+                                                    </a>
+                                                </h6>
+    
+                                                <div class="post-data">
+                                                    <p class="font-small grey-text mb-0">
+                                                        <i class="far fa-clock-o"></i> 18/08/2017</p>
+                                                </div>
+                                            </div>
+                                            <!--/ Excerpt -->
+                                        </div>
+                                        <!--/ Grid row -->
+                                    </div>
+    
+                                    <div class="single-post">
+                                        <!-- Grid row -->
+                                        <div class="row mb-4">
+                                            <div class="col-5">
+    
+                                                <!-- Image -->
+                                                <div class="view overlay">
+                                                    <img src="https://mdbootstrap.com/img/Photos/Others/photo10.jpg" class="img-fluid z-depth-1 rounded-0" alt="sample image">
+                                                    <a>
+                                                        <div class="mask rgba-white-slight"></div>
+                                                    </a>
+                                                </div>
+                                            </div>
+    
+                                            <!-- Excerpt -->
+                                            <div class="col-7">
+                                                <h6 class="mt-0 font-small">
+                                                    <a>
+                                                        <strong>Title of the news</strong>
+                                                    </a>
+                                                </h6>
+    
+                                                <div class="post-data">
+                                                    <p class="font-small grey-text mb-0">
+                                                        <i class="far fa-clock-o"></i> 18/08/2017</p>
+                                                </div>
+                                            </div>
+                                            <!--/ Excerpt -->
+                                        </div>
+                                        <!--/ Grid row -->
+                                    </div>
+    
+                                    <div class="single-post">
+                                        <!-- Grid row -->
+                                        <div class="row mb-4">
+                                            <div class="col-5">
+    
+                                                <!-- Image -->
+                                                <div class="view overlay">
+                                                    <img src="https://mdbootstrap.com/img/Photos/Others/photo15.jpg" class="img-fluid z-depth-1 rounded-0" alt="sample image">
+                                                    <a>
+                                                        <div class="mask rgba-white-slight"></div>
+                                                    </a>
+                                                </div>
+                                            </div>
+    
+                                            <!-- Excerpt -->
+                                            <div class="col-7">
+                                                <h6 class="mt-0 font-small">
+                                                    <a>
+                                                        <strong>Title of the news</strong>
+                                                    </a>
+                                                </h6>
+    
+                                                <div class="post-data">
+                                                    <p class="font-small grey-text mb-0">
+                                                        <i class="far fa-clock-o"></i> 18/08/2017</p>
+                                                </div>
+                                            </div>
+                                            <!--/ Excerpt -->
+                                        </div>
+                                        <!--/ Grid row -->
+                                    </div>
+    
+                                    <div class="single-post">
+                                        <!-- Grid row -->
+                                        <div class="row mb-4">
+                                            <div class="col-5">
+    
+                                                <!-- Image -->
+                                                <div class="view overlay">
+                                                    <img src="https://mdbootstrap.com/img/Photos/Others/photo9.jpg" class="img-fluid z-depth-1 rounded-0" alt="sample image">
+                                                    <a>
+                                                        <div class="mask rgba-white-slight"></div>
+                                                    </a>
+                                                </div>
+                                            </div>
+    
+                                            <!-- Excerpt -->
+                                            <div class="col-7">
+                                                <h6 class="mt-0 font-small">
+                                                    <a>
+                                                        <strong>Title of the news</strong>
+                                                    </a>
+                                                </h6>
+    
+                                                <div class="post-data">
+                                                    <p class="font-small grey-text mb-0">
+                                                        <i class="far fa-clock-o"></i> 18/08/2017</p>
+                                                </div>
+                                            </div>
+                                            <!--/ Excerpt -->
+                                        </div>
+                                        <!--/ Grid row -->
+    
+                                    </div>
+                                </div>
+                            </section>
+                            <!--/ Section: Featured posts -->
+    
+                            <!-- Section: Categories -->
+                            <section class="section my-5">
+    
+                                <!--/ Card -->
+                                <div class="card card-body pb-0">
+                                    <div class="single-post">
+    
+                                        <p class="font-weight-bold dark-grey-text text-center spacing grey lighten-4 py-2 mb-4">
+                                            <strong>CATEGORIES</strong>
+                                        </p>
+    
+                                        <ul class="list-group my-4">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="">
+                                                    <p class="mb-0">Travel</p>
+                                                </a>
+                                                <span class="badge teal badge-pill font-small">4</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="">
+                                                    <p class="mb-0">Lifestyle</p>
+                                                </a>
+                                                <span class="badge teal badge-pill">2</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="">
+                                                    <p class="mb-0">Photography</p>
+                                                </a>
+                                                <span class="badge teal badge-pill">1</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="">
+                                                    <p class="mb-0">Culinary</p>
+                                                </a>
+                                                <span class="badge teal badge-pill">2</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="">
+                                                    <p class="mb-0">Fashion</p>
+                                                </a>
+                                                <span class="badge teal badge-pill">1</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="">
+                                                    <p class="mb-0">Work</p>
+                                                </a>
+                                                <span class="badge teal badge-pill">2</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a class="">
+                                                    <p class="mb-0">Business</p>
+                                                </a>
+                                                <span class="badge teal badge-pill">5</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+    
+                                </div>
+    
+                            </section>
+                            <!-- Section: Categories -->
+    
+                            <!--Newsletter-->
+                            <section class="my-5">
+    
+                                <!--/ Card -->
+                                <div class="card card-body pb-0">
+                                    <div class="single-post">
+    
+                                        <p class="font-weight-bold dark-grey-text text-center spacing grey lighten-4 py-2 mb-4">
+                                            <strong>NEWSLETTER</strong>
+                                        </p>
+    
+                                        <!--Grid row-->
+                                        <div class="row mt-4">
+                                            <!--Grid column-->
+                                            <div class="col-md-12">
+    
+                                                <div class="input-group md-form form-sm form-3 pl-0">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text white black-text" id="basic-addon9">@</span>
+                                                    </div>
+                                                    <input type="text" class="form-control mt-0 black-border rgba-white-strong" placeholder="Username" aria-describedby="basic-addon9">
+                                                </div>
+    
+                                                <button type="button" class="btn btn-grey btn-block mb-4 mt-4">Sign up</button>
+    
+                                            </div>
+                                            <!--Grid column-->
+                                        </div>
+                                        <!--Grid row-->
+    
+                                    </div>
+                                </div>
+    
+                            </section>
+                            <!--Newsletter-->
+    
+                            <!--Archive-->
+                            <section class="archive mb-5">
+    
+                                <!--/ Card -->
+                                <div class="card card-body pb-0">
+                                    <div class="single-post">
+    
+                                        <p class="font-weight-bold dark-grey-text text-center spacing grey lighten-4 py-2 mb-4">
+                                            <strong>ARCHIVE</strong>
+                                        </p>
+    
+                                        <!--Grid row-->
+                                        <div class="row mb-4">
+    
+                                            <!--Grid column-->
+                                            <div class="col-md-12 text-center">
+    
+                                                <!--List-->
+                                                <ul class="list-unstyled">
+                                                    <li>
+                                                        <p class="mb-1 mt-2">
+                                                            <a href="#!" class="dark-grey-text">August 2016</a>
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <p class="mb-1">
+                                                            <a href="#!" class="dark-grey-text">July 2016</a>
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <p class="mb-1">
+                                                            <a href="#!" class="dark-grey-text">June 2016</a>
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <p class="mb-1">
+                                                            <a href="#!" class="dark-grey-text">May 2016</a>
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <p class="mb-1">
+                                                            <a href="#!" class="dark-grey-text">April 2016</a>
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <p class="mb-1">
+                                                            <a href="#!" class="dark-grey-text">March 2016</a>
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <p class="mb-0">
+                                                            <a href="#!" class="dark-grey-text">Febuary 2016</a>
+                                                        </p>
+                                                    </li>
+                                                </ul>
+                                                <!--List-->
+    
+                                            </div>
+                                            <!--Grid column-->
+    
+                                        </div>
+                                        <!--Grid row-->
+    
+                                    </div>
+    
+                                </div>
+                                <!--/ Card -->
+    
+                            </section>
+                            <!--Archive-->
+    
+                        </div>
+                        <!--Sidebar-->
+    
+                    </div>
+                    <!--Blog-->
+    
+                </div>
+        </section>
+        <!--Blog section-->
+{% endblock %} 

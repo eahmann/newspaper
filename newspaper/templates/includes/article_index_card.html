@@ -1,0 +1,49 @@
+{% get_comment_count for post as comment_count %}
+                <div class="col-md-12">
+                  <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" style="background: #FBFAF7">
+                    <div class="col p-2 d-flex flex-column position-static">
+                      <h4 class="mb-0">{{ post.title }}</h4>
+                      
+                        <div class="mb-1 text-muted">{{ post.specific.date|date:"F d, Y" }} <p class="card-text"> 
+                            {% if  post.authors.all %}
+                               By {% for iter in post.specific.authors.all %}
+                                   {# If there's a website, create an <a> tag #}
+                                     {% if iter.author.person_page.url %}
+                                   <a href="{{ iter.author.person_page.url }}">
+                                       {{ iter.author.name }}{% include 'includes/comma_and.html' %}
+                                   </a>
+                                   {% else %} {{ iter.author.name }}{% include 'includes/comma_and.html' %}
+                                   {% endif %}
+                               {% endfor %}
+                           {% endif %}&sdot;&nbsp;<a href="{% post_date_url post self %}#comments">{% if comment_count %}{{ comment_count }} comment{{ comment_count|pluralize }}
+                              {% endif %}</a>
+                           
+                            
+                           
+                    </div>
+                      <p class="card-text mb-auto">
+                        
+                        {% with blocks=post.specific.content %}
+        
+                          {% for block in blocks %}
+                              {% if block.block_type == 'heading' %}
+                                  <h2>{{ block.value }}</h2>
+                              {% else %}
+                                 <section class="block-{{ block.block_type }}">
+                                     {{ block|truncatechars:"350" }}
+                                 </section>
+                              {% endif %}
+                          {% endfor %}
+                      
+                      {% endwith %}</p>
+                      <a href="{% post_date_url post self %}">Continue reading</a>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                      {% if post.specific.main_image %}
+                        {% image post.specific.main_image fill-340x240 %}
+                        {% else %}
+                        <img src="https://via.placeholder.com/340x240" alt="{{ img.alt }}">
+                        {% endif %}
+                    </div>
+                  </div>
+                </div>

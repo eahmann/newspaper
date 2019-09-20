@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        {{ self.title }}<br> {{ self.tagline }}
+    </div>
+        <div class="row">
+            <h3 class="pb-4 mb-4 font-italic col">
+
+
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div>
+            <h3 class="pb-4 mb-4 font-italic col">
+                Latest Articles<hr>
+            </h3>
+        </div>
+            <!-- Card deck -->
+<div class="card-deck mx-auto">
+
+
+    {% for post in posts %} {% include 'includes/article_card.html' %} 
+    {% if forloop.counter|divisibleby:"4"%}
+        <!-- Card -->
+        <div class="card mb-4">
+  
+            <!--Card image-->
+            <div class="view overlay">
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+        
+            <!--Card content-->
+            <div class="card-body">
+        
+              <!--Title-->
+              <h4 class="card-title">Advertisement card</h4>
+              <!--Text-->
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+              <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+        
+            </div>
+        
+          </div>
+          <!-- Card -->
+          {% endif %}
+    {% endfor %}
+
+  </div>
+  <!-- Card deck -->
+  <div class="row mx-auto">
+    {% include 'includes/paginator.html' %} 
+    </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %} Latest News
+
+<div class="card-deck">
+    {% for post in article_pages %} {% include 'includes/article_card.html' %} {% endfor %}
+</div>

@@ -1,0 +1,10 @@
+Home - fas fa-home
+News - far fa-newspaper
+Sports - fas fa-football-ball
+A&E - fas fa-theater-masks
+Commentary - fas fa-comment-alt
+Satire - 
+Variety - fas fa-compress-arrows-alt
+Comics - fas fa-palette
+Staff - fas fa-id-badge
+About - fas fa-info-circle

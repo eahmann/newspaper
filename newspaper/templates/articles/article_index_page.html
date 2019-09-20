@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load wagtailuserbar wagtailimages_tags wagtailcore_tags custom_tags %}
+
+
+
+{% block content %}
+    <h2 class="text-center">{{self.title}}</h2>
+    {% for post in posts %}
+                    <div class="col-md-12">
+                      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" style="background: #FBFAF7">
+                        <div class="col p-2 d-flex flex-column position-static">
+                          <h4 class="mb-0">{{ post.title }}</h4>
+                          
+                            <div class="mb-1 text-muted">{{ post.specific.date|date:"F d, Y" }} <p class="card-text"> 
+                                {% if  post.authors.all %}
+                                   By {% for iter in post.specific.authors.all %}
+                                       {# If there's a website, create an <a> tag #}
+                                         {% if iter.author.person_page.url %}
+                                       <a href="{{ iter.author.person_page.url }}">
+                                           {{ iter.author.name }}
+                                       </a>{% include 'includes/comma_and.html' %}
+                                       {% else %} {{ iter.author.name }}{% include 'includes/comma_and.html' %}
+                                       {% endif %}
+                                   {% endfor %}
+                               {% endif %}&sdot;&nbsp;
+                        </div>
+                          <p class="card-text mb-auto">
+                            
+                            {% with blocks=post.specific.content %}
+            
+                              {% for block in blocks %}
+                                  {% if block.block_type == 'heading' %}
+                                      <h2>{{ block.value }}</h2>
+                                  {% else %}
+                                     <section class="block-{{ block.block_type }}">
+                                         {{ block|truncatechars:"350" }}
+                                     </section>
+                                  {% endif %}
+                              {% endfor %}
+                          
+                          {% endwith %}</p>
+                          <a href="{% pageurl post %}">Continue reading</a>
+                        </div>
+                        <div class="col-auto d-none d-lg-block">
+                                {% if post.specific.main_image %}
+                                  {% image post.specific.main_image fill-340x240 %}
+                                  {% else %}
+                                  <img src="https://via.placeholder.com/340x240" alt="{{ img.alt }}">
+                                  {% endif %}
+                              </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+
+                      {% if posts.paginator.num_pages > 1 %}
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="pagination">
+            {% if posts.has_previous %}
+              <li class="page-item">
+                <a href="?page={{ posts.previous_page_number }}" class="page-link">
+                  <span>&laquo;</span>
+                </a>
+              </li>
+            {% endif %}
+
+            {% for page_num in posts.paginator.page_range %}
+              <li class="page-item {% if page_num == posts.number %} active{% endif %}">
+                <a href="?page={{ page_num }}" class="page-link">
+                  {{ page_num }}
+                </a>
+              </li>
+            {% endfor %}
+
+            {% if posts.has_next %}
+              <li class="page-item">
+                <a href="?page={{ posts.next_page_number }}" class="page-link">
+                  <span>&raquo;</span>
+                </a>
+              </li>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% wagtailuserbar %}
+{% endblock content %}
